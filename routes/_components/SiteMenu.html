@@ -1,0 +1,53 @@
+<:Head>
+    <link rel="stylesheet" href="/css/SiteMenu/style.css">
+    <!-- TODO POR AHORA NO
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    -->
+</:Head>
+
+<title>{{title}}</title>
+<nav class="navbar is-info" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <!--TODO estas imagenes se deben obtener dependiendo del cliente -->
+            <img src="/img/site_logo_white.png" alt="Alcaldia de Guarne" height="300px">
+        </a>
+
+        <div class="navbar-burger" data-target="navMenu" on:click="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+            <a class='navbar-item {{page === "home"  ? "is-active" : ""}}' href="/">
+                Información
+            </a>
+            <a class='navbar-item {{page === "register"  ? "is-active" : ""}}'  href="/register">
+                Inscribirse
+            </a>
+            <!--TODO este link debe cambiar con el estado de Login -->
+            <a rel=prefetch class='navbar-item {{page === "login"  ? "is-active" : ""}}' href="/login">
+                Iniciar Sesión
+            </a>
+            <!--TODO este no debe aparecer aqui, es el index si islogged -->
+            <a class='navbar-item {{page === "dash"  ? "is-active" : ""}}' href="/dashboard">
+                Dashboard
+            </a>
+        </div>
+    </div>
+</nav>
+<main>
+    <slot></slot>
+</main>
+<script>
+    export default {
+        methods: {
+            toggleMenu() {
+                event.target.classList.toggle('is-active');
+                document.querySelector('#'+event.target.dataset.target).classList.toggle('is-active');
+            }
+        }
+    };
+</script>
