@@ -22,5 +22,10 @@
     "svelte": "^1.56.0",
     "svelte-loader": "^2.3.3",
     "webpack": "^4.1.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.4"
   }
 }
