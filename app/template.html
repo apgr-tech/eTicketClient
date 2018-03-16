@@ -15,23 +15,17 @@
 		}
 	</script>
 
-	<!-- Sapper generates a <style> tag containing critical CSS
-	     for the current page. CSS for the rest of the app is
-	     lazily loaded when it precaches secondary pages -->
+	<!-- Styles -->
 	%sapper.styles%
 
-	<!-- This contains the contents of the <:Head> component, if
-	     the current page has one -->
+	<!-- :Head -->
 	%sapper.head%
 </head>
 <body>
-	<!-- The application will be rendered inside this element,
-	     because `templates/main.js` references it -->
+	<!-- Render -->
 	<div id='sapper'>%sapper.html%</div>
 
-	<!-- Sapper creates a <script> tag containing `templates/main.js`
-	     and anything else it needs to hydrate the app and
-	     initialise the router -->
+	<!-- Hydrate Scripts -->
 	%sapper.scripts%
 </body>
 </html>
