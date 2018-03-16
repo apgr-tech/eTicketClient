@@ -37,4 +37,6 @@ $addColors: (
 );
 $colors: map-merge($colors, $addColors);
 
+//All Bulma
+//@import "../node_modules/bulma/bulma";
 //TODO Remove unused styles

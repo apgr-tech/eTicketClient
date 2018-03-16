@@ -1,0 +1,37 @@
+<!-- TODO hacer este boton de apertura mas personalizable -->
+<button on:click="toggleModal({id})" class="button">Abrir {{title}}</button>
+<slot name="opener"  on:click="fire(modalclick,{modalId:'login-modal'})"></slot>
+
+<div class="modal is-active" id="modal-{{id}}">
+    <div  on:click="toggleModal()" class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">{{title}}</p>
+            <button class="delete" aria-label="close" on:click="toggleModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <main>
+                <slot name="content"></slot>
+            </main>
+        </section>
+        <footer class="modal-card-foot">
+            <slot name="footer"></slot>
+        </footer>
+    </div>
+</div>
+<style>
+    @import "/css/Modal/style.css";
+</style>
+<script>
+    export default {
+        methods: {
+            toggleModal(modalId) {
+                if (modalId){
+                    document.querySelector("#modal-"+modalId.id).classList.toggle('is-active');
+                } else {
+                    document.querySelector("." + event.target.classList).closest(".modal").classList.toggle('is-active');
+                }
+            }
+        }
+    }
+</script>

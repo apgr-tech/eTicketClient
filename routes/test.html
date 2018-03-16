@@ -1,17 +1,33 @@
 <:Head>
     <title>Test Route</title>
 </:Head>
+
 <SiteLayout>
-    <LoginForm></LoginForm>
 </SiteLayout>
+<Modal id="login-modal" type="card" title="Iniciar Sesión">
+    <div slot="content">
+        <LoginForm></LoginForm>
+    </div>
+    <div slot="footer">
+        <button class="button is-primary">Aceptar</button>
+        <button class="button is-primary">Cancelar</button>
+    </div>
+</Modal>
+
 <script>
     import SiteLayout from './_components/SiteLayout.html';
     import LoginForm from './_components/LoginForm.html';
-
+    import Modal from './_components/Modal.html';
     export default {
         components: {
             SiteLayout,
-            LoginForm
+            LoginForm,
+            Modal
+        },
+        methods: {
+            toggleChildModal(modalID) {
+                Modal.methods.toggleModal(modalID);
+            }
         }
     }
 </script>
