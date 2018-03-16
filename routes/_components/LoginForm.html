@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/css/Forms/style.css">
+<form>
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+            <!-- TODO el is-danger debe añadirse en validaciones -->
+            <input class="input is-danger" type="email" placeholder="Email" autocomplete="email">
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+            <!-- TODO solo se debe mostrar si no pasa validacion -->
+            <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+            </span>
+        </div>
+        <!-- TODO el is-danger debe añadirse en validaciones -->
+        <p class="help is-danger">Debe Ingresar un Correo Valido</p>
+    </div>
+    <div class="field">
+        <label class="label">Contraseña</label>
+        <div class="control has-icons-left has-icons-right">
+            <!-- TODO el is-danger debe añadirse en validaciones -->
+            <input class="input is-danger" type="password" placeholder="Contraseña" autocomplete="current-password">
+            <span class="icon is-small is-left">
+                <i class="fas fa-key"></i>
+            </span>
+            <!-- TODO solo se debe mostrar si no pasa validacion -->
+            <span class="icon is-small is-right">
+                <i class="fas fa-exclamation-triangle"></i>
+            </span>
+        </div>
+        <!-- TODO el is-danger debe añadirse en validaciones -->
+        <p class="help is-danger">Debe Escribir su Contraseña</p>
+    </div>
+</form>
+<script>
+    import fontawesome from '@fortawesome/fontawesome';
+    import faKey from '@fortawesome/fontawesome-free-solid/faKey';
+    import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
+    import faExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle';
+    fontawesome.library.add(faKey);
+    fontawesome.library.add(faEnvelope);
+    fontawesome.library.add(faExclamationTriangle);
+</script>
