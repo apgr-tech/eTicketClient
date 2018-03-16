@@ -2,14 +2,16 @@
     <title>Test Route</title>
 </:Head>
 <SiteLayout>
-    Este es el Contenido de Test
+    <LoginForm></LoginForm>
 </SiteLayout>
 <script>
     import SiteLayout from './_components/SiteLayout.html';
+    import LoginForm from './_components/LoginForm.html';
 
     export default {
         components: {
-            SiteLayout
+            SiteLayout,
+            LoginForm
         }
     }
 </script>
