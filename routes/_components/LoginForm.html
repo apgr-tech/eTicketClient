@@ -1,37 +1,49 @@
-<form>
-    <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left has-icons-right">
-            <!-- TODO el is-danger debe añadirse en validaciones -->
-            <input class="input is-danger" type="email" placeholder="Email" autocomplete="email">
-            <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-            </span>
-            <!-- TODO solo se debe mostrar si no pasa validacion -->
-            <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-            </span>
-        </div>
-        <!-- TODO el is-danger debe añadirse en validaciones -->
-        <p class="help is-danger">Debe Ingresar un Correo Valido</p>
+<Modal id="login" type="card" title="Iniciar Sesión" class='navbar-item'>
+
+    <div slot="content">
+        <form>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control has-icons-left has-icons-right">
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <input class="input" type="email" placeholder="Email" autocomplete="email" on:keyup="validateEmail()" bind:value=email required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    {{#if !email}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Ingresar un Correo Valido</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Contraseña</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="password" placeholder="Contraseña" autocomplete="current-password" bind:value=password>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    {{#if !password}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Escribir su Contraseña</p>
+                    {{/if}}
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="field">
-        <label class="label">Contraseña</label>
-        <div class="control has-icons-left has-icons-right">
-            <!-- TODO el is-danger debe añadirse en validaciones -->
-            <input class="input is-danger" type="password" placeholder="Contraseña" autocomplete="current-password">
-            <span class="icon is-small is-left">
-                <i class="fas fa-key"></i>
-            </span>
-            <!-- TODO solo se debe mostrar si no pasa validacion -->
-            <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-            </span>
-        </div>
-        <!-- TODO el is-danger debe añadirse en validaciones -->
-        <p class="help is-danger">Debe Escribir su Contraseña</p>
+    <div slot="footer">
+        <input class="button" type="submit" disabled='{{!email || !password}}' value="Aceptar"/>
     </div>
-</form>
+</Modal>
+
 <style>
     @import "/css/Forms/style.css";
 </style>
@@ -40,7 +52,22 @@
     import faKey from '@fortawesome/fontawesome-free-solid/faKey';
     import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
     import faExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle';
+    import Modal from './Modal.html';
     fontawesome.library.add(faKey);
     fontawesome.library.add(faEnvelope);
     fontawesome.library.add(faExclamationTriangle);
+    export default {
+        data() {
+            return {
+                email: '',
+                password: '',
+                validEmail: true,
+                validPass: true
+            };
+        },
+        components: {
+            Modal
+        }
+    }
+
 </script>

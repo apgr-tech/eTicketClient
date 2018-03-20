@@ -20,15 +20,7 @@
                 Inscribirse
             </a>
             <!--TODO este link debe cambiar con el estado de Login -->
-            <Modal id="login" type="card" title="Iniciar Sesión" class='navbar-item'>
-                <div slot="content">
-                    <LoginForm></LoginForm>
-                </div>
-                <div slot="footer">
-                    <button class="button is-primary">Aceptar</button>
-                    <button class="button is-primary">Cancelar</button>
-                </div>
-            </Modal>
+            <LoginForm></LoginForm>
 
             <!--TODO este no debe aparecer aqui, es el index si islogged -->
             <a class='navbar-item {{page === "dash"  ? "is-active" : ""}}' href="/dashboard">
@@ -41,11 +33,9 @@
     @import "/css/SiteMenu/style.css";
 </style>
 <script>
-    import Modal from './Modal.html';
     import LoginForm from './LoginForm.html';
     export default {
         components:{
-            Modal,
             LoginForm
         },
         methods: {
