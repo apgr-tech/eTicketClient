@@ -16,16 +16,11 @@
             <a class='navbar-item {{page === "home"  ? "is-active" : ""}}' href="/">
                 Información
             </a>
-            <a class='navbar-item {{page === "register"  ? "is-active" : ""}}'  href="/register">
-                Inscribirse
-            </a>
+
+            <SingUpForm></SingUpForm>
+
             <!--TODO este link debe cambiar con el estado de Login -->
             <LoginForm></LoginForm>
-
-            <!--TODO este no debe aparecer aqui, es el index si islogged -->
-            <a class='navbar-item {{page === "dash"  ? "is-active" : ""}}' href="/dashboard">
-                Dashboard
-            </a>
         </div>
     </div>
 </nav>
@@ -34,9 +29,11 @@
 </style>
 <script>
     import LoginForm from './LoginForm.html';
+    import SingUpForm from './SingUpForm.html';
     export default {
         components:{
-            LoginForm
+            LoginForm,
+            SingUpForm
         },
         methods: {
             toggleMenu() {

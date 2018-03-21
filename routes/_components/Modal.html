@@ -1,6 +1,6 @@
 <!-- TODO hacer este boton de apertura mas personalizable -->
 <slot name="opener">
-    <a href="#" on:click="toggleModal({id})" class="{{class}}">{{title}}</a>
+    <a href="/#" on:click="toggleModal({id})" class="{{class}}">{{title}}</a>
 </slot>
 
 <div class="modal animated" id="modal-{{id}}">
@@ -28,7 +28,7 @@
         methods: {
             toggleModal(modalId) {
                 if (modalId){
-                    document.querySelector("#modal-"+modalId.id).classList.toggle('is-active');
+                    document.querySelector(".modal#modal-"+modalId.id).classList.toggle('is-active');
                 } else {
                     document.querySelector("." + event.target.classList).closest(".modal").classList.toggle('is-active');
                 }

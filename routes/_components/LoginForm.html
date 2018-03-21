@@ -6,7 +6,7 @@
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
                     <!-- TODO el is-danger debe añadirse en validaciones -->
-                    <input class="input" type="email" placeholder="Email" autocomplete="email" on:keyup="validateEmail()" bind:value=email required>
+                    <input class="input" type="email" placeholder="Email" autocomplete="email" bind:value=email required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -38,6 +38,11 @@
                 </div>
             </div>
         </form>
+        <!--TODO habilitar login con otros proveedores -->
+        <!--TODO validar Form-->
+        <!--TODO enviar Form-->
+        <!--TODO Olvidé contraseña-->
+        <!--TODO Redireccionar si login exitoso-->
     </div>
     <div slot="footer">
         <input class="button" type="submit" disabled='{{!email || !password}}' value="Aceptar"/>

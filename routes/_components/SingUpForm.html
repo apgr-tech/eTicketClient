@@ -1,0 +1,169 @@
+<!--TODO cambiar Iconos -->
+<!--TODO Validar Formulario -->
+<!--TODO Enviar Formulario y correo de confirmación -->
+<Modal id="singup" type="card" title="Inscripción" class='navbar-item'>
+
+    <div slot="content">
+        <form>
+            <div class="field">
+                <label class="label">Nombres</label>
+                <div class="control has-icons-left has-icons-right">
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <input class="input" type="text" placeholder="Nombres" autocomplete="name" bind:value=name required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    {{#if !name}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Ingresar un Nombre</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Apellidos</label>
+                <div class="control has-icons-left has-icons-right">
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <input class="input" type="email" placeholder="Apellidos" autocomplete="last-name"bind:value=lastName required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    {{#if !lastName}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Ingresar un Apellido</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Tipo Documento</label>
+                <div class="control has-icons-left has-icons-right">
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <input class="input" type="text" placeholder="Tipo Documento" bind:value=docType required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    {{#if !docType}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Ingresar un Correo Valido</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Numero de Documento</label>
+                <div class="control has-icons-left has-icons-right">
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <input class="input" type="text" placeholder="Numero de Documento" bind:value=document required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    {{#if !document}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Ingresar un Correo Valido</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Institución Educativa</label>
+                <div class="control has-icons-left has-icons-right">
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <input class="input" type="text" placeholder="Institución Educativa" bind:value=schoolId required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    {{#if !schoolId}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Seleccionar una Institucion Educativa</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control has-icons-left has-icons-right">
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <input class="input" type="email" placeholder="Email" autocomplete="email" bind:value=email required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    {{#if !email}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Ingresar un Correo Valido</p>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Contraseña</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="password" placeholder="Contraseña" autocomplete="current-password" bind:value=password>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    {{#if !password}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Escribir su Contraseña</p>
+                    {{/if}}
+                </div>
+            </div>
+        </form>
+    </div>
+    <div slot="footer">
+        <input class="button" type="submit" disabled='{{!email || !password}}' value="Aceptar"/>
+    </div>
+</Modal>
+
+<style>
+    @import "/css/Forms/style.css";
+</style>
+<script>
+    import fontawesome from '@fortawesome/fontawesome';
+    import faKey from '@fortawesome/fontawesome-free-solid/faKey';
+    import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
+    import faExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle';
+    import Modal from './Modal.html';
+    fontawesome.library.add(faKey);
+    fontawesome.library.add(faEnvelope);
+    fontawesome.library.add(faExclamationTriangle);
+    export default {
+        data() {
+            return {
+                name: '',
+                lastName: '',
+                docType: '',
+                document: '',
+                schoolId: '',
+                email: '',
+                password: '',
+            };
+        },
+        components: {
+            Modal
+        }
+    }
+
+</script>
