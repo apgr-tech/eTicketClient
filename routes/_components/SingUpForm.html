@@ -130,6 +130,24 @@
                     {{/if}}
                 </div>
             </div>
+            <div class="field">
+                <label class="label">Confirmar Contraseña</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="password" placeholder="Confirmar Contraseña" autocomplete="current-password" bind:value=password>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+                    <!-- TODO validar que coincidan -->
+                    <!-- TODO el is-danger debe añadirse en validaciones -->
+                    <!-- TODO solo se debe mostrar si no pasa validacion -->
+                    {{#if !password}}
+                    <span class="icon is-small is-right">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    <p class="help is-danger">Debe Escribir su Contraseña</p>
+                    {{/if}}
+                </div>
+            </div>
         </form>
     </div>
     <div slot="footer">

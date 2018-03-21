@@ -30,6 +30,7 @@
                 if (modalId){
                     document.querySelector(".modal#modal-"+modalId.id).classList.toggle('is-active');
                 } else {
+                    //TODO esto realmente funciona?
                     document.querySelector("." + event.target.classList).closest(".modal").classList.toggle('is-active');
                 }
             }
