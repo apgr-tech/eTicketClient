@@ -25,6 +25,7 @@
     "polka": "^0.3.4",
     "sapper": "^0.9.4",
     "serve-static": "^1.13.1",
+    "spectre.css": "^0.5.1",
     "svelte": "^1.56.0",
     "svelte-loader": "^2.3.3",
     "webpack": "^4.1.0"
