@@ -1,63 +1,59 @@
-<Modal id="login" type="card" title="Iniciar Sesión" class='navbar-item'>
-
+<!--TODO habilitar login con otros proveedores -->
+<!--TODO validar Form-->
+<!--TODO enviar Form-->
+<!--TODO Olvidé contraseña-->
+<!--TODO Redireccionar si login exitoso-->
+<Modal id="login" type="card" title="Iniciar Sesión" class="navbar-item">
     <div slot="content">
-        <form>
+        <form on:submit="login()">
             <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
-                    <!-- TODO el is-danger debe añadirse en validaciones -->
-                    <input class="input" type="email" placeholder="Email" autocomplete="email" bind:value=email required>
+                    <input class="input" type="email" placeholder="Email" autocomplete="email" bind:value=email ref:emailInput required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
                     <!-- TODO solo se debe mostrar si no pasa validacion -->
-                    <!-- TODO el is-danger debe añadirse en validaciones -->
-                    {{#if !email}}
+                    {{#if (!email && error) || error}}
                     <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                    <p class="help is-danger">Debe Ingresar un Correo Valido</p>
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                     {{/if}}
                 </div>
             </div>
             <div class="field">
                 <label class="label">Contraseña</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="password" placeholder="Contraseña" autocomplete="current-password" bind:value=password>
+                    <input class="input" type="password" placeholder="Contraseña" autocomplete="current-password" bind:value=pass ref:passInput required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-key"></i>
                     </span>
-                    <!-- TODO el is-danger debe añadirse en validaciones -->
                     <!-- TODO solo se debe mostrar si no pasa validacion -->
-                    {{#if !password}}
+                    {{#if (!pass && error) || error}}
                     <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                    <p class="help is-danger">Debe Escribir su Contraseña</p>
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                     {{/if}}
                 </div>
             </div>
+            {{#if error}}
+            <p class="help is-danger">Usuario o Contraseña Invalidos</p>
+            {{/if}}
         </form>
-        <!--TODO habilitar login con otros proveedores -->
-        <!--TODO validar Form-->
-        <!--TODO enviar Form-->
-        <!--TODO Olvidé contraseña-->
-        <!--TODO Redireccionar si login exitoso-->
+
     </div>
     <div slot="footer">
-        <input class="button" type="submit" disabled='{{!email || !password}}' value="Aceptar"/>
+        <button ref:submitButton class="button is-primary" disabled='{{!email || !pass}}' on:click="login()">Ingresar</button>
     </div>
 </Modal>
 
 <style type="text/scss">
-    @import "sass/global";
-    @import "node_modules/bulma/sass/utilities/all";
-    @import "node_modules/bulma/sass/base/all";
-    @import "node_modules/bulma/sass/elements/form";
-    @import "node_modules/bulma/sass/elements/icon";
-
+    @import "_styles/loginform";
 </style>
 <script>
+    import axios from 'axios';
+    import { goto } from 'sapper/runtime';
+    //Icons for inputs
     import fontawesome from '@fortawesome/fontawesome';
     import faKey from '@fortawesome/fontawesome-free-solid/faKey';
     import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
@@ -70,13 +66,51 @@
         data() {
             return {
                 email: '',
-                password: '',
-                validEmail: true,
-                validPass: true
+                pass: '',
+                error: ''
             };
         },
         components: {
             Modal
+        },
+        methods: {
+            login(event) {
+                const url = 'http://localhost:3001/api/Users/login';
+                const emailInput = this.refs.emailInput;
+                const passInput = this.refs.passInput;
+                const submitButton = this.refs.submitButton;
+                const email = this.get('email');
+                const pass = this.get('pass');
+                //Limpiar Alertas
+                this.set({error: ''});
+                emailInput.classList.remove('is-danger');
+                passInput.classList.remove('is-danger');
+                submitButton.classList.add('is-loading');
+
+
+                //Enviar el query
+                axios.post(url,email.indexOf('@') > 0 ? {email:this.get('email'),password: this.get('pass')} : {username:this.get('email'),password: this.get('pass')} )
+                    .then(response => {
+                        //Limpiar Alertas
+                        this.set({error: ''});
+                        submitButton.classList.remove('is-loading');
+                        //Cerrar Modal
+                        submitButton.closest('.modal').classList.toggle('is-active');
+                        //guardar la sesion?
+                        //Cambiar Titulo del Enlace a Cerrar Sesión (ya no es un modal y debe ser global)
+                        //Redirigir a Dashboard (o modificar el index)
+                        goto('/');
+                    })
+                    .catch(error => {
+                        emailInput.classList.add('is-danger');
+                        passInput.classList.add('is-danger');
+                        submitButton.classList.remove('is-loading');
+                        this.set({error: error});
+                    })
+
+
+            }
+
         }
     }
 
