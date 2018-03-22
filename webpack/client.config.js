@@ -4,6 +4,8 @@ const config = require('sapper/webpack/config.js');
 const mode = process.env.NODE_ENV;
 const isDev = mode === 'development';
 
+const sass = require('node-sass');
+
 module.exports = {
 	entry: config.client.entry(),
 	output: config.client.output(),
@@ -21,7 +23,29 @@ module.exports = {
 						hydratable: true,
 						cascade: false,
 						store: true,
-						hotReload: true
+						hotReload: true,
+                        style: ({ content, attributes }) => {
+                            if (attributes.type !== "text/scss") return;
+
+                            return new Promise((fulfil, reject) => {
+                                sass.render(
+                                    {
+                                        data: content,
+                                        includePaths: [],
+                                        sourceMap: false,
+                                        outFile: "x" // this is necessary, but is ignored
+                                    },
+                                    (err, result) => {
+                                        if (err) return reject(err);
+
+                                        fulfil({
+                                            code: result.css.toString(),
+                                            map: ''
+                                        });
+                                    }
+                                );
+                            });
+                        }
 					}
 				}
 			}
