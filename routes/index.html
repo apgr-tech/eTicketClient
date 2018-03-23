@@ -1,51 +1,28 @@
 <:Head>
-	<title>Sapper project template</title>
+	<title>Tiquete Estudiantil</title>
 </:Head>
 
 <SiteLayout page='home'>
-	<h1>Este es el Home!</h1>
-
-	<figure>
-		<img alt='logo guarne' src='/img/site_logo.png'>
-		<figcaption>¡Test!</figcaption>
-	</figure>
-
+	<:Component {isLogged ? Dashboard : Home}></:Component>
 </SiteLayout>
 
 <style>
-	h1, figure {
-		text-align: center;
-		margin: 0 auto;
-	}
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
-	figure {
-		margin: 0 0 1em 0;
-	}
-
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
 </style>
 
 <script>
 	import SiteLayout from './_components/SiteLayout.html';
+	import Home from './_components/home/Main.html'
+	import Dashboard from './_components/dashboard/Main.html'
+	import isLogged from './_scripts/token';
 
 	export default {
+        oncreate(){
+            this.set({isLogged: isLogged()})
+        },
+        data() {
+            return { Home, Dashboard }
+        },
 		components: {
 			SiteLayout
 		}
