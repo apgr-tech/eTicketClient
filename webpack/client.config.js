@@ -31,16 +31,16 @@ module.exports = {
                                 sass.render(
                                     {
                                         data: content,
-                                        includePaths: [],
-                                        sourceMap: false,
+                                        includePaths: ['routes/_styles'],
+                                        sourceMap: true,
                                         outFile: "x" // this is necessary, but is ignored
                                     },
                                     (err, result) => {
                                         if (err) return reject(err);
 
                                         fulfil({
-                                            code: result.css.toString(),
-                                            map: ''
+                                            code: result.css,
+                                            map: result.map
                                         });
                                     }
                                 );

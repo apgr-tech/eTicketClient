@@ -30,8 +30,8 @@ module.exports = {
                                 sass.render(
                                     {
                                         data: content,
-                                        includePaths: [],
-                                        sourceMap: false,
+                                        includePaths: ['routes/_styles'],
+                                        sourceMap: true,
                                         outFile: "x" // this is necessary, but is ignored
                                     },
                                     (err, result) => {
@@ -39,7 +39,7 @@ module.exports = {
 
                                         fulfil({
                                             code: result.css.toString(),
-                                            map: ''
+                                            map: result.map
                                         });
                                     }
                                 );
