@@ -1,8 +1,7 @@
 <!--TODO cambiar Iconos -->
 <!--TODO Validar Formulario -->
 <!--TODO Enviar Formulario y correo de confirmación -->
-<Modal id="singup" type="card" title="Inscripción" class='navbar-item'>
-
+<Modal id="singup" type="card" title="Inscripción" ref:modalComponent>
     <div slot="content">
         <form>
             <div class="field">
@@ -157,7 +156,7 @@
 
 <style type="text/scss">
     //TODO REFACTOR THIS
-    @import "routes/_styles/loginform";
+    @import "loginform";
 </style>
 <script>
     import fontawesome from '@fortawesome/fontawesome';
@@ -169,6 +168,9 @@
     fontawesome.library.add(faEnvelope);
     fontawesome.library.add(faExclamationTriangle);
     export default {
+      oncreate(){
+        this.on('openModal',() => this.refs.modalComponent.fire('toggle'));
+      },
         data() {
             return {
                 name: '',
