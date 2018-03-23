@@ -30,7 +30,7 @@ module.exports = {
                                 sass.render(
                                     {
                                         data: content,
-                                        includePaths: ['routes/_styles'],
+                                        includePaths: ['routes'],
                                         sourceMap: true,
                                         outFile: "x" // this is necessary, but is ignored
                                     },
