@@ -18,7 +18,11 @@
             </a>
             <!--TODO este link debe cambiar con el estado de Login -->
             <a href="/#" on:click="openSingup()" class="navbar-item">Inscripción</a>
-            <a href="/#" on:click="openLogin()" class="navbar-item">Iniciar Sesión</a>
+            {{#if isLogged}}
+                <a href="/#" on:click="fireLogout()" class="navbar-item">Cerrar Sesión</a>
+            {{else}}
+                <a href="/#" on:click="openLogin()" class="navbar-item">Iniciar Sesión</a>
+            {{/if}}
 
         </div>
     </div>
@@ -29,9 +33,13 @@
     @import "sitemenu";
 </style>
 <script>
+    import isLogged from "../_scripts/token";
     import LoginForm from './LoginForm.html';
     import SingUpForm from './SingUpForm.html';
     export default {
+        oncreate(){
+            this.set({isLogged: isLogged()})
+        },
         components:{
             LoginForm,
             SingUpForm
@@ -42,10 +50,13 @@
                 document.querySelector('#'+event.target.dataset.target).classList.toggle('is-active');
             },
             openLogin(){
-              this.refs.loginForm.fire('openModal');
+                this.refs.loginForm.fire('openModal');
             },
             openSingup(){
-              this.refs.singupForm.fire('openModal');
+                this.refs.singupForm.fire('openModal');
+            },
+            fireLogout(){
+                this.refs.loginForm.fire('logout');
             }
         }
     };
