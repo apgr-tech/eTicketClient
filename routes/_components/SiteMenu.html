@@ -16,14 +16,15 @@
             <a class='navbar-item {{page === "home"  ? "is-active" : ""}}' href="/">
                 Información
             </a>
-
-            <SingUpForm></SingUpForm>
-
             <!--TODO este link debe cambiar con el estado de Login -->
-            <LoginForm></LoginForm>
+            <a href="/#" on:click="openSingup()" class="navbar-item">Inscripción</a>
+            <a href="/#" on:click="openLogin()" class="navbar-item">Iniciar Sesión</a>
+
         </div>
     </div>
 </nav>
+<SingUpForm ref:singupForm></SingUpForm>
+<LoginForm ref:loginForm></LoginForm>
 <style type="text/scss">
     @import "sitemenu";
 </style>
@@ -39,6 +40,12 @@
             toggleMenu() {
                 event.target.classList.toggle('is-active');
                 document.querySelector('#'+event.target.dataset.target).classList.toggle('is-active');
+            },
+            openLogin(){
+              this.refs.loginForm.fire('openModal');
+            },
+            openSingup(){
+              this.refs.singupForm.fire('openModal');
             }
         }
     };
