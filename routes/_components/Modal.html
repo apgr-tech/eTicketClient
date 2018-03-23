@@ -1,9 +1,9 @@
 <div class="modal animated {{open ? 'is-active' : ''}}" id="modal-{{id}}">
-    <div  on:click="fire('toggleModal')" class="modal-background"></div>
+    <div  on:click="fire('toggle')" class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">{{title}}</p>
-            <button class="delete" aria-label="close" on:click="fire('toggleModal')"></button>
+            <button class="delete" aria-label="close" on:click="fire('toggle')"></button>
         </header>
         <section class="modal-card-body">
             <main>
