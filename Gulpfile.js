@@ -15,7 +15,7 @@ gulp.task('global',function(){
     pipe(sourceMaps.init()).
     pipe(sass().on('error', sass.logError)).
     pipe(sourceMaps.write()).
-    pipe(gulp.dest('./assets/'))
+    pipe(gulp.dest('./assets/css/'))
 });
 
 //Watch task
