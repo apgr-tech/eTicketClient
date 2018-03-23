@@ -48,17 +48,17 @@
 </Modal>
 
 <style type="text/scss">
-    @import "loginform";
+    @import "_components/loginform/loginform";
 </style>
 <script>
-    import { api } from '../_scripts/api';
+    import { api } from '../../_scripts/api';
     import { goto } from 'sapper/runtime';
     //Icons for inputs
     import fontawesome from '@fortawesome/fontawesome';
     import faKey from '@fortawesome/fontawesome-free-solid/faKey';
     import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
     import faExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle';
-    import Modal from './Modal.html';
+    import Modal from '../modal/Modal.html';
     fontawesome.library.add(faKey);
     fontawesome.library.add(faEnvelope);
     fontawesome.library.add(faExclamationTriangle);

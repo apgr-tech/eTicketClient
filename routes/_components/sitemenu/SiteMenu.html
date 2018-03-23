@@ -30,12 +30,12 @@
 <SingUpForm ref:singupForm></SingUpForm>
 <LoginForm ref:loginForm></LoginForm>
 <style type="text/scss">
-    @import "sitemenu";
+    @import "_components/sitemenu/sitemenu";
 </style>
 <script>
-    import isLogged from "../_scripts/token";
-    import LoginForm from './LoginForm.html';
-    import SingUpForm from './SingUpForm.html';
+    import isLogged from "../../_scripts/token";
+    import LoginForm from '../loginform/LoginForm.html';
+    import SingUpForm from '../singupform/SingUpForm.html';
     export default {
         oncreate(){
             this.set({isLogged: isLogged()})
