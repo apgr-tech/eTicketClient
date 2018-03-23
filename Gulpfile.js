@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourceMaps = require('gulp-sourcemaps');
-
+//deprecated
 gulp.task('styles',function(){
     gulp.src('./sass/**/*.scss').
     pipe(sourceMaps.init()).
