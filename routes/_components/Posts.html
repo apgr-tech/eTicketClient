@@ -1,0 +1,40 @@
+<article>
+    {{#await posts}}
+        <p>Esperando Promise</p>
+    {{then data}}
+        <p>Recibidos</p>
+        {{#each data.posts as post}}
+            <li>{{post.title}} {{post.isPublished ? '(Publicado)' : '(Borrador)'}}</li>
+        {{/each}}
+    {{catch error}}
+        <p>ups: {{error}}</p>
+    {{/await}}
+</article>
+
+<style>
+
+</style>
+<script>
+    import { GraphQLClient } from 'graphql-request'
+    const gqlCli = new GraphQLClient('http://localhost:4466/prisma-test/dev', {
+        headers: {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJwcmlzbWEtdGVzdEBkZXYiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNTIyMjQ4NDE5LCJleHAiOjE1MjI4NTMyMTl9.ix-sceOi3wXt0swRpvtjilWSoNEXlekcCmXrrghGLDE',
+        },
+    });
+    export default {
+        data() {
+            return {
+                posts: new Promise(function (resolve, reject) {
+                    const query = 'query {posts {id, title, isPublished}}';
+                    gqlCli.request(query)
+                        .then(data => resolve(data))
+                        .catch(error => reject(error))
+                })
+                    .catch(function (error) {
+                        return error
+                    })
+            }
+        }
+    }
+
+</script>

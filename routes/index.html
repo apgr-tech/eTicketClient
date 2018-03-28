@@ -4,6 +4,7 @@
 
 <SiteLayout page='home'>
 	<:Component {isLogged ? Dashboard : Home}></:Component>
+	<Posts></Posts>
 </SiteLayout>
 
 <style>
@@ -14,6 +15,7 @@
 	import SiteLayout from './_components/SiteLayout.html';
 	import Home from './_components/home/Main.html'
 	import Dashboard from './_components/dashboard/Main.html'
+	import Posts from './_components/Posts.html'
 	import isLogged from './_scripts/token';
 
 	export default {
@@ -24,7 +26,8 @@
             return { Home, Dashboard }
         },
 		components: {
-			SiteLayout
+			SiteLayout,
+			Posts
 		}
 	};
 </script>
