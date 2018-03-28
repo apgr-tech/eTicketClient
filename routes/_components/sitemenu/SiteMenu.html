@@ -13,14 +13,15 @@
     </div>
     <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
-            <a class='navbar-item {{page === "home"  ? "is-active" : ""}}' href="/">
-                Información
-            </a>
+
 
             {{#if isLogged}}
                 <a href="/#" on:click="fireLogout()" class="navbar-item">Cerrar Sesión</a>
             {{else}}
-            <!--TODO este link debe cambiar con el estado de Login? -->
+                <!--TODO este link debe cambiar con el estado de Login? -->
+                <a class='navbar-item {{page === "home"  ? "is-active" : ""}}' href="/">
+                    Información
+                </a>
                 <a href="/#" on:click="openSingup()" class="navbar-item">Inscripción</a>
                 <a href="/#" on:click="openLogin()" class="navbar-item">Iniciar Sesión</a>
             {{/if}}
