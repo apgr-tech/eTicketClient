@@ -38,7 +38,5 @@ $addColors: (
 $colors: map-merge($colors, $addColors);
 
 //All Bulma
-//TODO Remove unused styles
-//@import "node_modules/bulma/bulma";
 @import "../../node_modules/bulma/sass/utilities/all";
 @import "../../node_modules/bulma/sass/base/all";

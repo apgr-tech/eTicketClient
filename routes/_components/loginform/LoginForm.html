@@ -4,8 +4,9 @@
 <!--TODO Olvidé contraseña-->
 <!--TODO Redireccionar si login exitoso-->
 <Modal id="login" type="card" title="Iniciar Sesión" ref:modalComponent>
+
     <div slot="content">
-        <form on:submit="login()">
+        <form on:submit='login( event )' novalidate>
             <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
@@ -39,19 +40,19 @@
             {{#if error}}
             <p class="help is-danger">Usuario o Contraseña Invalidos</p>
             {{/if}}
+            <input type="submit" hidden>
         </form>
-
     </div>
     <div slot="footer">
-        <button ref:submitButton class="button is-primary" disabled='{{!email || !pass}}' on:click="login()">Ingresar</button>
+        <button type='submit' class="button is-primary" disabled='{{!email || !pass}}' ref:submitButton on:click="login(event)">Ingresar</button>
     </div>
+
 </Modal>
 
 <style type="text/scss">
     @import "_components/loginform/loginform";
 </style>
 <script>
-    import { api } from '../../_scripts/api';
     import { goto } from 'sapper/runtime';
     //Icons for inputs
     import fontawesome from '@fortawesome/fontawesome';
@@ -59,14 +60,14 @@
     import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
     import faExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle';
     import Modal from '../modal/Modal.html';
-    fontawesome.library.add(faKey);
-    fontawesome.library.add(faEnvelope);
-    fontawesome.library.add(faExclamationTriangle);
+    fontawesome.library.add(faKey,faEnvelope,faExclamationTriangle);
+    //GraphQL
+    import {gqlCLI} from "../../_scripts/gqlcli";
     export default {
         oncreate() {
             this.on('openModal',() => this.refs.modalComponent.fire('toggle'));
             this.on('logout', () => this.logout())
-         },
+        },
         data() {
             return {
                 email: '',
@@ -78,47 +79,50 @@
             Modal
         },
         methods: {
-            login() {
-                const url = '/Users/login';
-                const emailInput = this.refs.emailInput;
-                const passInput = this.refs.passInput;
-                const submitButton = this.refs.submitButton;
+            login(event) {
+                event.preventDefault();
                 const email = this.get('email');
                 const pass = this.get('pass');
+                const exp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-                //Limpiar Alertas
+                //clean alerts
                 this.set({error: ''});
-                emailInput.classList.remove('is-danger');
-                passInput.classList.remove('is-danger');
-                submitButton.classList.add('is-loading');
+                this.refs.emailInput.classList.remove('is-danger');
+                this.refs.passInput.classList.remove('is-danger');
+                this.refs.submitButton.classList.add('is-loading');
 
-                //Enviar el query
-                api.post(
-                    url,
-                    email.indexOf('@') > 0 ? {email:email,password: pass} : {username:email,password: pass})
+                //With GraphQL
+                const credential = exp.test(email.toString()) ? 'email:"'+email+'"' : 'userName:"'+email+'"';
+                const query = '{login('+credential+', password:"'+pass+'")}';
+                gqlCLI.request(query)
                     .then(response => {
-                        //Limpiar Alertas
-                        this.set({error: ''});
-                        submitButton.classList.remove('is-loading');
-                        //Cerrar Modal
-                        this.refs.modalComponent.fire('toggle');
-                        //guardar la sesion
-                        this.set({token: response.data.id});
-                        window.sessionStorage.token = response.data.id;
-                        //TODO Modificar el Index
-                        goto('/');
+                        if(response.login.error) {
+                            this.refs.submitButton.classList.remove('is-loading');
+                            this.set({error: response.login.error});
+                        }
+                        if (response.login.token) {
+                            //clean alerts
+                            this.set({error: ''});
+                            this.refs.submitButton.classList.remove('is-loading');
+                            //close modal
+                            this.refs.modalComponent.fire('toggle');
+                            //save session
+                            this.set({token: response.login.token});
+                            window.sessionStorage.token = response.login.token;
+                            goto('/');
+                        }
                     })
                     .catch(error => {
-                        submitButton.classList.remove('is-loading');
+                        this.refs.submitButton.classList.remove('is-loading');
                         this.set({error: error});
                     });
             },
             logout(){
+                //TODO send logout request to invalidate token
                 this.set({token: false});
                 window.sessionStorage.removeItem('token');
                 goto('/')
             }
         }
     }
-
 </script>
