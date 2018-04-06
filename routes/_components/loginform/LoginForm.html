@@ -96,7 +96,7 @@
                 const query = '{login('+credential+', password:"'+pass+'")}';
                 gqlCLI.request(query)
                     .then(response => {
-                        if(response.login.error) {
+                        if(response.errors) {
                             this.refs.submitButton.classList.remove('is-loading');
                             this.set({error: response.login.error});
                         }

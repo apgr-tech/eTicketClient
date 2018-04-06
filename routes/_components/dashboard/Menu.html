@@ -1,37 +1,74 @@
-<aside class="menu">
-    <p class="menu-label">
-        General
-    </p>
-    <ul class="menu-list">
-        <li><a>Dashboard</a></li>
-        <li><a>Customers</a></li>
-    </ul>
-    <p class="menu-label">
-        Administration
-    </p>
-    <ul class="menu-list">
-        <li><a>Team Settings</a></li>
-        <li>
-            <a class="is-active">Manage Your Team</a>
-            <ul>
-                <li><a>Members</a></li>
-                <li><a>Plugins</a></li>
-                <li><a>Add a member</a></li>
-            </ul>
+{{#await menus}}
+    <!--TODO a global Spinner fired with an event to SiteLayout-->
+    CARGANDO...
+{{then menus}}
+    <ul class="menu" style="height: 90vh">
+        <!-- Menu Header -->
+        <!--TODO user profile image, redirects to profile -->
+        <li class="menu-item">
+            <!-- TODO data-initial current user initials -->
+            <!-- TODO add badges with unreaded events class badge and data-badge as count -->
+            <figure class="avatar avatar-xl badge" data-badge="50" data-initial="RA" style="background-color: #15c911;">
+                <!--TODO load user profile picture-->
+                <img src="/img/site_logo.png">
+                <!-- TODO add window.onoffline states (online, busy or away, none for offline)-->
+                <i class="avatar-presence busy"></i>
+            </figure>
         </li>
-        <li><a>Invitations</a></li>
-        <li><a>Cloud Storage Environment Settings</a></li>
-        <li><a>Authentication</a></li>
+        <!-- Divider -->
+        <li class="divider"></li>
+        <!-- menu item standard -->
+        {{#each menus as menu}}
+            {{#if menu.subMenus.length == 0}}
+                {{#if menu.target || menu.component}}
+                    <li class="menu-item">
+                        <a href="#">
+                            {{menu.label}}
+                        </a>
+                    </li>
+                {{else}}
+                    <!-- TODO if no target and not component then show as divider -->
+                    <li>divisor {{menu.label}}</li>
+                {{/if}}
+            {{else}}
+                <div class="accordion menu-item :active">
+                    <input type="checkbox" id="accordion-{{menu.id}}" name="accordion-checkbox" hidden checked="">
+                    <label class="accordion-headec-hand" for="accordion-{{menu.id}}">
+                        {{menu.label}}
+                    </label>
+                    <div class="accordion-body">
+                        <ul class="menu menu-nav">
+                            {{#each menu.subMenus as subMenu}}
+                                <li class="menu-item">
+                                    <!-- TODO fire real event (loadComponent, loadRoute...) -->
+                                    <a on:click="fire('sample',subMenu.label)">{{subMenu.label}} fires</a>
+                                </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            {{/if}}
+        {{/each}}
     </ul>
-    <p class="menu-label">
-        Transactions
-    </p>
-    <ul class="menu-list">
-        <li><a>Payments</a></li>
-        <li><a>Transfers</a></li>
-        <li><a>Balance</a></li>
-    </ul>
-</aside>
+{{catch error}}
+<p>Ha ocurrido un Error!</p>
+{{/await}}
 <style type="text/scss">
     @import "_components/dashboard/menu.scss";
+    //TODO CAMBIAR A ESPECIFICO PARA EL MENU
+    @import "_styles/global_s.scss";
 </style>
+<script>
+
+    import {gqlCLI} from "../../_scripts/gqlcli";
+    export default {
+        data() {
+            return {
+                menus: gqlCLI.request('{ allMenus { id label parentId target component subMenus { id label parentId target component } } }')
+                    .then(Menus => {
+                        return Menus.allMenus;
+                    })
+            }
+        }
+    }
+</script>

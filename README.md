@@ -14,6 +14,7 @@ eTicketClient is part of the eTicket by AppGrade Tech ecosystem: eTicketApi, eTi
 - [ ] Reader (general)
 - [ ] Api (general)
 - [ ] Database Schema (general)
+- [ ] Menu Workflow
 
 
 ## Basic Operation
