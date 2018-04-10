@@ -13,15 +13,11 @@
     </div>
     <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
-
-
             {{#if isLogged}}
                 <a href="/#" on:click="fireLogout()" class="navbar-item">Cerrar Sesión</a>
             {{else}}
                 <!--TODO este link debe cambiar con el estado de Login? -->
-                <a class='navbar-item {{page === "home"  ? "is-active" : ""}}' href="/">
-                    Información
-                </a>
+                <a class='navbar-item {{page === "home"  ? "is-active" : ""}}' href="/">Información</a>
                 <a href="/#" on:click="openSingup()" class="navbar-item">Inscripción</a>
                 <a href="/#" on:click="openLogin()" class="navbar-item">Iniciar Sesión</a>
             {{/if}}
@@ -32,12 +28,12 @@
 <SingUpForm ref:singupForm></SingUpForm>
 <LoginForm ref:loginForm></LoginForm>
 <style type="text/scss">
-    @import "_components/sitemenu/sitemenu";
+    @import "_components/globals/site/menu";
 </style>
 <script>
-    import isLogged from "../../_scripts/token";
-    import LoginForm from '../loginform/LoginForm.html';
-    import SingUpForm from '../singupform/SingUpForm.html';
+    import isLogged from "../../../_scripts/token";
+    import LoginForm from '../login/LoginForm.html';
+    import SingUpForm from '../singup/SingUpForm.html';
     export default {
         oncreate(){
             this.set({isLogged: isLogged()})

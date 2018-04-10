@@ -6,14 +6,11 @@
 	<:Component {isLogged ? Dashboard : Home}></:Component>
 </SiteLayout>
 
-<style>
-
-</style>
-
 <script>
-	import SiteLayout from './_components/SiteLayout.html';
+	import SiteLayout from './_components/globals/site/layout.html';
 	import Home from './_components/home/Main.html'
 	import Dashboard from './_components/dashboard/Main.html'
+    //TODO improve isLogged
 	import isLogged from './_scripts/token';
 
 	export default {

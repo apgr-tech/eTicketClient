@@ -1,39 +1,23 @@
 <div class="off-canvas off-canvas-sidebar-show" style="height: 100vh">
     <!-- TODO Toggle Button Icons, and hide hashtag from url-->
     <a class="off-canvas-toggle btn" href="#sidebar-id">
-        <i class="icon icon-menu"></i>Abrir
+        <i class="icon icon-menu"></i>
     </a>
 
     <div id="sidebar-id" class="off-canvas-sidebar">
-        <Menu on:sample="sample(event)">
+        <Menu on:select="loadComponent(event)">
         </Menu>
     </div>
 
-    <!-- Overlay -->
     <!-- TODO remove hashtag from url -->
+    <!-- Overlay -->
     <a class="off-canvas-overlay" href="#close"></a>
 
     <!-- Content -->
+
     <div class="off-canvas-content">
-        <!--TODO load Components fired with events (loadComponent, loadRoute..) in card-->
-        <!-- TODO card Component-->
-        <div class="card">
-            <div class="card-image">
-                <img src="img/osx-el-capitan.jpg" class="img-responsive">
-            </div>
-            <div class="card-header">
-                <div class="card-title h5">Title</div>
-                <div class="card-subtitle text-gray">Subtitle</div>
-            </div>
-            <div class="card-body">
-                <span>El contenido es: {{contenido}}</span>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-primary">Button</button>
-            </div>
-        </div>
-
-
+        <!--TODO load Components fired with events (loadComponent) in card-->
+        <:Component {component}></:Component>
     </div>
 </div>
 <style type="text/scss">
@@ -42,14 +26,27 @@
 </style>
 
 <script>
+    'use strict';
     import Menu from './Menu.html';
+    import apgr_menus from '../apgr/menus.html'
+    import apgr_roles from '../apgr/roles.html'
     export default {
         components: {
             Menu
         },
+        data() {
+            return { component: '', apgr_menus, apgr_roles}
+        },
         methods: {
-            sample(input) {
-                this.set({contenido: input})
+            loadComponent(componentName) {
+                switch (componentName) {
+                    case 'apgr_menus':
+                        this.set({component: apgr_menus});
+                        break;
+                    case 'apgr_roles':
+                        this.set({component: apgr_roles});
+                        break;
+                }
             }
         }
     }

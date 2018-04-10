@@ -1,0 +1,82 @@
+<article>
+    ESTE ES EL CONTENIDO DE Apgr/menus
+    <p>
+        Interfaz que permitirá operar los menus
+    </p>
+    <ul>
+        <li>Crear Menu</li>
+        <li>Eliminar Menu</li>
+        <li>Actualizar Menu</li>
+        <li>Reordenar Menus (drag)</li>
+    </ul>
+</article>
+{{#await menus}}
+    CARGANDO...
+{{then menus}}
+    {{#each menus as menu}}
+        <div class="tile">
+            <div class="tile-icon">
+                <!--TODO icons not working -->
+                <i class="icon icon-menu"></i>
+            </div>
+            <div class="tile-content">
+                <p class="tile-title">{{menu.label}}</p>
+
+                {{#if menu.subMenus.length > 0}}
+                    <!--TODO add menu description, for this field, and tooltips on menu-->
+                    <div class="tile-subtitle">
+                        {{#each menu.subMenus as subMenu}}
+                            <div class="tile tile-centered">
+                                <div class="tile-icon">
+                                    <i class="icon icon-menu"></i>
+                                </div>
+                                <div class="tile-content">
+                                    <p class="tile-title">{{subMenu.label}}</p>
+                                </div>
+                                <div class="tile-action">
+                                    <label class="form-switch">
+                                        <input type="checkbox" bind:checked=subMenu.active>
+                                        <!--TODO change text with state -->
+                                        {{subMenu.active ? 'Activo' : 'Inactivo'}}
+                                        <i class="form-icon"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        {{/each}}
+                        <button class="btn btn-action">
+                            <i class="icon icon-plus"></i>
+                        </button>
+                    </div>
+                {{/if}}
+            </div>
+            <div class="tile-action">
+                <label class="form-switch">
+                    <input type="checkbox" bind:checked=menu.active>
+                    <!--TODO change text with state -->
+                    {{menu.active ? 'Activo' : 'Inactivo'}}
+                    <i class="form-icon"></i>
+                </label>
+            </div>
+        </div>
+        <li class="divider"></li>
+    {{/each}}
+{{catch error}}
+    <p>Ha ocurrido un Error!</p>
+{{/await}}
+<button class="btn btn-primary">Añadir Menus</button>
+<style type="text/scss">
+    @import "_styles/global_s";
+</style>
+<script>
+    import {gqlCLI} from "../../_scripts/gqlcli";
+    export default {
+        data() {
+            return {
+                menus: gqlCLI.request('{ allMenus { id label target component active subMenus { id label target component active } } }')
+                    .then(Menus => {
+                        return Menus.allMenus;
+                    })
+            }
+        }
+    }
+</script>

@@ -32,6 +32,14 @@ module.exports = {
                                         data: content,
                                         includePaths: ['routes'],
                                         sourceMap: true,
+                                        importer: function(url, prev) {
+                                            if(url.indexOf('@material') === 0) {
+                                                const filePath = url.split('@material')[1];
+                                                const nodeModulePath = `./node_modules/@material/${filePath}`;
+                                                return { file: require('path').resolve(nodeModulePath) };
+                                            }
+                                            return { file: url };
+                                        },
                                         outFile: "x" // this is necessary, but is ignored
                                     },
                                     (err, result) => {

@@ -50,7 +50,7 @@
 </Modal>
 
 <style type="text/scss">
-    @import "_components/loginform/loginform";
+    @import "_components/globals/login/loginform";
 </style>
 <script>
     import { goto } from 'sapper/runtime';
@@ -62,7 +62,7 @@
     import Modal from '../modal/Modal.html';
     fontawesome.library.add(faKey,faEnvelope,faExclamationTriangle);
     //GraphQL
-    import {gqlCLI} from "../../_scripts/gqlcli";
+    import {gqlCLI} from "../../../_scripts/gqlcli";
     export default {
         oncreate() {
             this.on('openModal',() => this.refs.modalComponent.fire('toggle'));
